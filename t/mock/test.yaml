@@ -1,0 +1,29 @@
+name: Lism.Test
+servers:
+    op:
+        - op01
+        - op02
+    app:
+        - app01
+        - app02
+        - app03
+        - app04
+    memd:
+        - memd01
+        - op02
+    spare:
+        - spare01
+        - spare02
+    dball:
+        - dbm01
+        - dbm02
+        - dbs01
+        - dbs02
+        - dbs03
+    dbmaster:
+        - dbm01
+        - dbm02
+    dbslave:
+        - dbs01
+        - dbs02
+        - dbs03

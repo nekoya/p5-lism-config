@@ -1,0 +1,19 @@
+This is Perl module Lism::Config.
+
+INSTALLATION
+
+To install this module, run the following commands:
+
+    % perl Makefile.PL
+    % make && make test
+    % make install
+
+DOCUMENTATION
+
+Lism::Config documentation is available as in POD. So you can do:
+
+    % perldoc Lism::Config
+
+to read the documentation online with your favorite pager.
+
+Ryo Miyake
