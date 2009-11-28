@@ -3,6 +3,7 @@ name 'Lism-Config';
 all_from 'lib/Lism/Config.pm';
 
 requires 'Config::YAML';
+requires 'Any::Moose';
 
 tests 't/*.t';
 author_tests 'xt';
