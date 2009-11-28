@@ -20,12 +20,13 @@ has 'config' => (
 
 sub _build_filename {
     my $self = shift;
-    for my $filename ( qw(
-        $ENV{ LISM_CONFIG }
-        $ENV{ HOME } . 'config.yaml'
-        $ENV{ HOME } . 'config.yml'
-        ) ) {
-        return $_ if -f $_;
+    for my $file (
+        $ENV{ LISM_CONFIG },
+        $ENV{ HOME } . '/config.yaml',
+        $ENV{ HOME } . '/config.yml',
+    ) {
+        next unless $file;
+        return $file if -f $file;
     }
 }
 
@@ -60,6 +61,19 @@ sub servers {
         } else {
             Carp::croak "$kind is not exists key.";
         }
+    }
+    return [uniq @results];
+}
+
+sub parse_servers_option {
+    my ($self, $opt) = @_;
+    my @results;
+    if ( $opt->{ group } ) {
+        my @groups = split /,/, $opt->{ group };
+        push @results, @{ $self->servers(\@groups) };
+    }
+    if ( $opt->{ server } ) {
+        push @results, split /,/, $opt->{ server };
     }
     return [uniq @results];
 }
@@ -105,6 +119,26 @@ Lism::Config find files,
 -$ENV{LISM_CONFIG}
 -$HOME/config.yaml
 -$HOME/config.yml
+
+=head1 METHODS
+
+=head2 servers
+
+  $conf->servers($group);
+  $conf->servers([ qw/group1 group2 .../ ]);
+
+get list of unique server names that belongs to group(s).
+
+you can get all server names, when called $conf->servers('all');
+
+=head2 parse_servers_option
+
+  $conf->parse_servers_option({ group => $group, server => $server });
+
+get list of unique server names based on options.
+
+ group: comma separated groups (ex: app,db)
+server: comma separated servers (ex: s1,s2,s3)
 
 =head1 AUTHOR
 

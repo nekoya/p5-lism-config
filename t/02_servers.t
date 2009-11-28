@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 4;
+use Test::More tests => 5;
 use Test::Exception;
 
 use FindBin::libs;
@@ -27,5 +27,14 @@ memd01 op02
 op01
 spare01 spare02
 )], "all servers";
+
+is_deeply $conf->parse_servers_option({
+    group  => 'dbmaster,dbslave',
+    server => 'dbm01,app01,app03',
+}), [qw(
+dbm01 dbm02
+dbs01 dbs02 dbs03
+app01 app03
+)], "parse servers option";
 
 throws_ok { $conf->servers('none') } qr/^none is not exists key\./;
