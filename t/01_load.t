@@ -4,8 +4,9 @@ use warnings;
 use Test::More tests => 2;
 
 use FindBin;
-use FindBin::libs;
+
 use Lism::Config;
 
-ok my $conf = Lism::Config->new( filename => "$FindBin::Bin/mock/test.yaml" );
-is $conf->filename, "$FindBin::Bin/mock/test.yaml";
+my $filename = "$FindBin::Bin/mock/test.yaml";
+ok my $conf = Lism::Config->new(filename => $filename), 'create instance';
+is $conf->filename, $filename, 'assert filename';
