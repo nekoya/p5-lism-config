@@ -2,13 +2,15 @@ use inc::Module::Install;
 name 'Lism-Config';
 all_from 'lib/Lism/Config.pm';
 
-requires 'Config::YAML';
 requires 'Any::Moose';
+requires 'Config::YAML';
 
-tests 't/*.t';
-author_tests 'xt';
+author_tests('xt');
 
-build_requires 'Test::More';
+test_requires 'Test::More';
+test_requires 'Test::Exception';
+include 'Sub::Uplevel';
+
 use_test_base;
 auto_include;
 WriteAll;
